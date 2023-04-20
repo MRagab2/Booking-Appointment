@@ -5,6 +5,9 @@ const authenticate = require('../middleware/authentication');
 const authorize = require('../middleware/authorization');
 
 const userController = require('../controllers/userController');
+const Request = require('../models/requestModel');
+const Review = require('../models/reviewModel');
+const Feedback = require('../models/feedbackModel');
 // CRUD
 router.get('/',
             authenticate,
@@ -27,10 +30,19 @@ router.get('/:email',
     try{
         req.body.email = req.params.email;
         let user = await userController.getUserByEmail(req,res);
-        if(!user) return res.status(404).send('User Not Found..');
+        if(!user) return res.status(404).json('User Not Found..');
+
+        let request = await Request.findOne({userID:user.id});
+        let review = await Review.findOne({userID:user.id});
+        let feedback = await Feedback.findOne({userID:user.id});
 /*request details + its review..... */
 
-        res.status(200).send(user);
+        res.status(200).json({
+            user,
+            request,
+            review,
+            feedback
+        });
     }catch(err){
         console.log(err);
         res.status(400).json(err.message);

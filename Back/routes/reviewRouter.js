@@ -1,16 +1,18 @@
 const express = require('express');
 const router = express.Router();
 
-const Review = require("../models/reviewModel");
 const userConroller = require('../controllers/userController');
 const authenticate = require('../middleware/authentication');
 const authorize = require('../middleware/authorization');
+const User = require('../models/userModel');
+const Request = require('../models/requestModel');
+const Review = require("../models/reviewModel");
 
 
 router.get('/reviews', 
-            authenticate, 
-            authorize,
-            async(req,res)=>{
+    authenticate, 
+    authorize,
+    async(req,res)=>{
     try{
         let reviews = await Review.find();
         
@@ -22,8 +24,8 @@ router.get('/reviews',
 });
 
 router.get('/accepted', 
-            authenticate, 
-            async(req,res)=>{
+    authenticate, 
+    async(req,res)=>{
     try{
         let reviews = await Review.find({status:'unhidden'});
         
@@ -35,9 +37,9 @@ router.get('/accepted',
 });
 
 router.get('/hidden', 
-            authenticate, 
-            authorize,
-            async(req,res)=>{
+    authenticate, 
+    authorize,
+    async(req,res)=>{
     try{
         let reviews = await Review.find({status:'hidden'});
         
@@ -49,9 +51,9 @@ router.get('/hidden',
 });
 
 router.get('/pending', 
-            authenticate, 
-            authorize,
-            async(req,res)=>{
+    authenticate, 
+    authorize,
+    async(req,res)=>{
     try{
         let reviews = await Review.find({status:'pending'});
         
@@ -63,8 +65,8 @@ router.get('/pending',
 });
 
 router.get('/:id', 
-            authenticate, 
-            async(req,res)=>{
+    authenticate, 
+    async(req,res)=>{
     try{
         let review = await Review.findOne({_id: req.params.id});
         
@@ -76,8 +78,8 @@ router.get('/:id',
 });
 
 router.post('/', 
-            authenticate, 
-            async(req,res)=>{
+    authenticate, 
+    async(req,res)=>{
     try{
         let requestID = req.body.requestID;
         let {_id : userID} = await userConroller.getUserByToken(req,res);
@@ -97,9 +99,26 @@ router.post('/',
             rate: req.body.rate,
             review: req.body.review
         });
-/* Add its id to
-    - request
-    - user */
+
+        let userCheck = await User.findOne({
+            _id: review.userID,
+        });
+        let requestCheck = await Request.findOne({
+            _id: review.userID,
+        });
+        if(requestCheck.reviewID || userCheck.reviewID) return res.status(400).send('User Already Feedbacked');
+
+        await User.findOneAndUpdate({
+            _id: review.userID
+        },{
+            reviewID: review.id
+        });
+        await Request.findOneAndUpdate({
+            _id: review.userID
+        },{
+            reviewID: review.id
+        });
+
         await review.save();        
         res.status(200).send(review);
     }catch(err){
@@ -109,9 +128,9 @@ router.post('/',
 });
 
 router.put('/hide/:id', 
-            authenticate, 
-            authorize,
-            async(req,res)=>{
+    authenticate, 
+    authorize,
+    async(req,res)=>{
     try{
         let reviewOld = await Review.findOne({
             _id: req.params.id          
@@ -138,9 +157,9 @@ router.put('/hide/:id',
 });
 
 router.put('/unhide/:id', 
-            authenticate, 
-            authorize,
-            async(req,res)=>{
+    authenticate, 
+    authorize,
+    async(req,res)=>{
     try{
         let reviewOld = await Review.findOne({
             _id: req.params.id          
@@ -167,9 +186,9 @@ router.put('/unhide/:id',
 });
 
 router.put('/:id', 
-            authenticate, 
-            authorize,
-            async(req,res)=>{
+    authenticate, 
+    authorize,
+    async(req,res)=>{
     try{
         let reviewOld = await Review.findOne({
             _id: req.params.id          
@@ -193,6 +212,33 @@ router.put('/:id',
     }catch(err){
         console.log(err);
         res.status(400).send(err.message);
+    }
+});
+
+router.delete('/:id',
+    authenticate,
+    async (req, res)=>{
+    try{
+        let review = await Review.findOneAndDelete({
+            _id: req.params.id
+        });
+        if(!review) return res.status(404).send('Review Not Found');
+
+        await User.findOneAndUpdate({
+            _id: review.userID
+        },{
+            reviewID: null
+        });
+        await Request.findOneAndUpdate({
+            _id: review.requestID
+        },{
+            reviewID: null
+        });
+
+        res.status(200).send(review);
+    }catch(err){
+        console.log(err);
+        res.status(400).json(err.message);
     }
 });
 

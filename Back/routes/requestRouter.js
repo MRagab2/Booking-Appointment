@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
+
 const Request = require("../models/requestModel");
+const User = require("../models/userModel");
 const authenticate = require('../middleware/authentication');
 const authorize = require('../middleware/authorization');
 const userConroller = require('../controllers/userController');
@@ -31,14 +33,14 @@ router.get('/:id',
     authenticate,
     async (req,res)=>{
     try{
-        let request = await Request.findOne({
-            _id: req.params.id
-        });
-
+        let request = await Request.findOne({_id: req.params.id});
         if(!request) return res.status(404).send('Request Not Found');
-/* + Review*/
-        
-        res.status(200).send(request);
+
+        let review = await Review.findOne({requestID: request.id});
+        res.status(200).send({
+            request,
+            review
+        });
     }catch(err){
         console.log(err);
         res.status(400).send(err.message);
@@ -65,7 +67,17 @@ router.post('/',
             userID: userID,
         });
 
-//add its id to user object..
+
+        let userCheck = await User.findOne({
+            _id: request.userID,
+        });
+        if(userCheck.requestID) return res.status(400).send('User Already sent request');
+
+        await User.findOneAndUpdate({
+            _id: request.userID
+        },{
+            requestID: request.id
+        });
         await request.save();
         res.status(200).send(request);
     }catch(err){
