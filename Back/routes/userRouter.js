@@ -10,9 +10,9 @@ const Review = require('../models/reviewModel');
 const Feedback = require('../models/feedbackModel');
 // CRUD
 router.get('/',
-            authenticate,
-            authorize, 
-            async (req,res)=>{
+    authenticate,
+    authorize, 
+    async (req,res)=>{
     try{
         let users = await userController.getAllUsers(req,res);
 
@@ -25,8 +25,8 @@ router.get('/',
 });
 
 router.get('/:email',
-            authenticate,
-            async (req,res)=>{
+    authenticate,
+    async (req,res)=>{
     try{
         req.body.email = req.params.email;
         let user = await userController.getUserByEmail(req,res);
@@ -50,12 +50,12 @@ router.get('/:email',
 });
 
 router.put('/:email',
-            authenticate,
-            authorize,
-            async (req,res)=>{
+    authenticate,
+    authorize,
+    async (req,res)=>{
     try{
         req.body.email = req.params.email;
-        let user = await userController.UpdateUser(req,res);
+        let user = await userController.updateUser(req,res);
 
         if(!user) return res.status(404).send('User Not Found..');
         
@@ -67,9 +67,9 @@ router.put('/:email',
 });
 
 router.put('/active/:email',
-            authenticate,
-            authorize,
-            async (req,res)=>{
+    authenticate,
+    authorize,
+    async (req,res)=>{
     try{
         req.body.email = req.params.email;
         let user = await userController.setUserActivate(req,res);
@@ -84,9 +84,9 @@ router.put('/active/:email',
 });
 
 router.put('/inactive/:email',
-            authenticate,
-            authorize,
-            async (req,res)=>{
+    authenticate,
+    authorize,
+    async (req,res)=>{
     try{
         req.body.email = req.params.email;
         let user = await userController.setUserInactivate(req,res);
@@ -101,12 +101,12 @@ router.put('/inactive/:email',
 });
 
 router.delete('/:email',
-            authenticate,
-            authorize,
-            async (req,res)=>{
+    authenticate,
+    authorize,
+    async (req,res)=>{
     try{
         req.body.email = req.params.email;
-        let user = await userController.activateUser(req,res);
+        let user = await userController.deleteUser(req,res);
 
         if(!user) return res.status(404).send('User Not Found..');
         

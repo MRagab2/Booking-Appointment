@@ -7,7 +7,8 @@ module.exports = async(req,res,next)=>{
             return res.status(400).send('Not Token...');
         
         let user = await User.findOne({
-            token: req.header("x-auth-token")
+            token: req.header("x-auth-token"),
+            status: 'active'
         });
         if(!user)
             return res.status(400).send('Not User...');

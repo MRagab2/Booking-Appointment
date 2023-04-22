@@ -10,7 +10,7 @@ let addUser = async (req,res,next)=>{
             email: req.body.email,
             password: await bcrypt.hash(req.body.password, 10),
             phone1: req.body.phone1,
-            token: crypto.randomBytes(16).toString('hex'),
+            token: crypto.randomBytes(10).toString('hex'),
         });
         await user.save();
         res.status(200).send(`Saved...`);
@@ -71,7 +71,7 @@ let getAllUsers = async (req,res,next)=> {
     }
 };
 
-let UpdateUser = async (req,res,next)=> {
+let updateUser = async (req,res,next)=> {
     try{
         let userOld = await User.findOne({
             email: req.body.email          
@@ -84,11 +84,23 @@ let UpdateUser = async (req,res,next)=> {
             phone1: req.body.phone1 ? req.body.phone1 : userOld.phone1,
             avatar: req.body.avatar ? req.body.avatar : userOld.avatar,
             token: req.body.token ? req.body.token : userOld.token,
-            activity: req.body.activity ? req.body.activity : userOld.activity,
+            status: req.body.status ? req.body.status : userOld.status,
             requestID: req.body.requestID ? req.body.requestID : userOld.requestID,
             reviewID: req.body.reviewID ? req.body.reviewID : userOld.reviewID,
             feedbackID: req.body.feedbackID ? req.body.feedbackID : userOld.feedbackID
         });
+
+        if(req.body.password){
+            let password1 = req.body.password ;
+            let password2 = req.body.passwordConfirm ;
+            if(password1 == password2){
+                await User.updateOne({            
+                    email: req.body.email          
+                },{
+                    password: await bcrypt.hash(password1, 10),
+                });
+            }
+        }        
 
         let userNew = await User.findOne({
             email: userOld.email          
@@ -110,7 +122,7 @@ let activateUser = async (req,res,next)=> {
         });
 
         let newActive;
-        switch(userOld.activity){
+        switch(userOld.status){
             case 'active':
                 newActive = 'inactive';
                 break;
@@ -121,7 +133,7 @@ let activateUser = async (req,res,next)=> {
         await User.updateOne({            
             email: req.body.email          
         },{
-            activity: newActive
+            status: newActive
         });
 
         let userNew = await User.findOne({
@@ -139,16 +151,16 @@ let activateUser = async (req,res,next)=> {
 
 let setUserActivate = async (req,res,next)=> {
     try{
-        let userOld = await User.findOneAndUpdate({
+        let userOld = await User.findOne({
             email: req.body.email          
         });
 
-        if(!userOld) return res.status(404).send('USer Not Found...');
+        if(!userOld) return res.status(404).send('User Not Found...');
         
         await User.updateOne({            
             email: req.body.email          
         },{
-            activity: 'active'
+            status: 'active'
         });
 
         let userNew = await User.findOne({
@@ -166,14 +178,14 @@ let setUserActivate = async (req,res,next)=> {
 
 let setUserInactivate = async (req,res,next)=> {
     try{
-        let userOld = await User.findOneAndUpdate({
+        let userOld = await User.findOne({
             email: req.body.email          
         });
 
         await User.updateOne({            
             email: req.body.email          
         },{
-            activity: 'inactive'
+            status: 'inactive'
         });
 
         let userNew = await User.findOne({
@@ -189,14 +201,30 @@ let setUserInactivate = async (req,res,next)=> {
     }
 };
 
+let deleteUser = async (req,res,next)=>{
+    try{
+    let user = await User.findOneAndDelete({
+        email: req.params.email
+    });
+    if(!user) return res.status(404).send('User Not Found');
+
+    return user;
+}catch(err){
+    console.log(err);
+    res.status(400).send(err.message);
+}
+}
+
+
 module.exports = {
     addUser,
     getUserByEmail,
     getUserByToken,
     getUserByID,
     getAllUsers,
-    UpdateUser,
+    updateUser,
     activateUser,
     setUserActivate,
-    setUserInactivate
+    setUserInactivate,
+    deleteUser
 };

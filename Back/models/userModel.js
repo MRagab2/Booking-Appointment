@@ -25,7 +25,7 @@ const userSchema = new mongoose.Schema(
             default: "user",
             trim: true
         },
-        phone1: {
+        phone: {
             type: String,
             required: true,
             trim: true
@@ -44,7 +44,7 @@ const userSchema = new mongoose.Schema(
             default: null,
             trim: true
         },
-        activity: {
+        status: {
             type: String,
             enum: ['active','inactive'],
             default: 'active'
