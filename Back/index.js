@@ -15,7 +15,7 @@ app.use(cors());
 app.use(helmet());
 
 // Port
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 4000;
 
 // Connect DB
 const connectDB = require('./db/dbConnection');
