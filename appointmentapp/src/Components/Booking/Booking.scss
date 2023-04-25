@@ -1,0 +1,40 @@
+
+.booking{
+    *{
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+        /* border: 1px solid black; */
+      }
+      h5{
+        font-weight: 600;
+        margin-bottom: 10px;
+      }
+      h3{
+        margin-bottom: 40px;
+        margin-top: 20px;
+      }
+      input{
+        margin-bottom: 20px;
+      }
+      .noteImgUser{
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        margin-right: 10px;
+      }
+      
+      .imgAndUser{
+        display: flex;
+        align-items: center;
+      }
+      .note p{
+        margin-left: 5%;
+      
+      
+      }
+      .notes{
+        margin-top: 20px;
+      }
+
+}  
