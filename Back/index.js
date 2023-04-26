@@ -11,8 +11,11 @@ const app = express();
 // Middlewares
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
-app.use(cors());
 app.use(helmet());
+app.use(cors({
+    credentials: true,
+    origin: "http://localhost:3000"
+}));
 
 // Port
 const port = process.env.PORT || 4000;

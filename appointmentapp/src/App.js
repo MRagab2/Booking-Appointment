@@ -7,8 +7,9 @@ import Navbar from './Components/Navbar/Navbar';
 import Profile from './Components/Profile/Profile';
 import EditProfile from './Components/EditProfile/EditProfile';
 import Booking from './Components/Booking/Booking';
+import axios from 'axios';
 
-
+axios.defaults.baseURL = 'http://localhost:4000';
 
 // let routes=createBrowserRouter([
 //   {path:"/",element:<Home/>},

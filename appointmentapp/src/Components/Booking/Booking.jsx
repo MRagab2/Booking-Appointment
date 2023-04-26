@@ -5,37 +5,37 @@ import { Link } from 'react-router-dom'
 export default function Booking() {
   return (
     <>
-       <nav class="navbar navbar-expand-lg navbar-light fixed-top bg-trans">
-    <Link class="navbar-brand" to="/">Navbar</Link>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
+       <nav className="navbar navbar-expand-lg navbar-light fixed-top bg-trans">
+    <Link className="navbar-brand" to="/">Navbar</Link>
+    <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span className="navbar-toggler-icon"></span>
     </button>
   
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item active">
-          <Link class="nav-link" to="/">Home</Link>
+    <div className="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul className="navbar-nav mr-auto">
+        <li className="nav-item active">
+          <Link className="nav-link" to="/">Home</Link>
         </li>
         </ul>
         </div>
         
   </nav>
   <div className="booking">
-  <div class="container">
-      <div class="bookContainer">
+  <div className="container">
+      <div className="bookContainer">
         {/* <!-- Book an Appointment  --> */}
-        <div class="booking">
+        <div className="booking">
           <h3>Book Your Appointment Now!</h3>
           <form>
             <h5>Select The Date :</h5>
             <input
               type="date"
-              class="form-control form-control-md"
+              className="form-control form-control-md"
               name="date"
               required
             />
             <h5>Select The Time :</h5>
-            <select name="time" class="form-control form-control-md">
+            <select name="time" className="form-control form-control-md">
               <option value="10:00">10:00</option>
               <option value="10:30">10:30</option>
               <option value="11:00">11:00</option>
@@ -55,38 +55,38 @@ export default function Booking() {
               <option value="18:00">18:00</option>
               <option value="18:30">18:30</option>
             </select>
-            <div class="select"></div>
+            <div className="select"></div>
           </form>
         </div>
         {/* <!-- Notes  --> */}
-        <div class="notes">
-          <div class="alert alert-success note" role="alert">
-            <div class="imgAndUser">
+        <div className="notes">
+          <div className="alert alert-success note" role="alert">
+            <div className="imgAndUser">
               <img
                 src="../assets/imgs/userImg.jpg"
-                class="noteImgUser"
+                className="noteImgUser"
                 alt=""
               />
               <h6>Abdallah Muhammed</h6>
             </div>
             <p>Booked an Appointment From 10:00 to 12:00</p>
           </div>
-          <div class="alert alert-success note" role="alert">
-            <div class="imgAndUser">
+          <div className="alert alert-success note" role="alert">
+            <div className="imgAndUser">
               <img
                 src="../assets/imgs/userImg.jpg"
-                class="noteImgUser"
+                className="noteImgUser"
                 alt=""
               />
               <h6>Abdallah Muhammed</h6>
             </div>
             <p>Booked an Appointment From 10:00 to 12:00</p>
           </div>
-          <div class="alert alert-danger note" role="alert">
-            <div class="imgAndUser">
+          <div className="alert alert-danger note" role="alert">
+            <div className="imgAndUser">
               <img
                 src="../assets/imgs/userImg.jpg"
-                class="noteImgUser"
+                className="noteImgUser"
                 alt=""
               />
               <h6>Abdallah Muhammed</h6>

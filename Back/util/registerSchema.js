@@ -15,7 +15,7 @@ const schema={
             type:'string',
             minLength:8
         },
-        'phone1':{
+        'phone':{
             type:'string',
             minLength:5
         },
@@ -24,7 +24,7 @@ const schema={
         'name',
         'email',
         'password',
-        'phone1'
+        'phone'
     ]
 };
 

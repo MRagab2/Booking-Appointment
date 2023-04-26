@@ -9,7 +9,7 @@ let addUser = async (req,res,next)=>{
             name: req.body.name,
             email: req.body.email,
             password: await bcrypt.hash(req.body.password, 10),
-            phone1: req.body.phone1,
+            phone: req.body.phone,
             token: crypto.randomBytes(10).toString('hex'),
         });
         await user.save();
@@ -81,7 +81,7 @@ let updateUser = async (req,res,next)=> {
             email: req.body.email          
         },{
             name: req.body.name ? req.body.name : userOld.name,
-            phone1: req.body.phone1 ? req.body.phone1 : userOld.phone1,
+            phone: req.body.phone ? req.body.phone : userOld.phone,
             avatar: req.body.avatar ? req.body.avatar : userOld.avatar,
             token: req.body.token ? req.body.token : userOld.token,
             status: req.body.status ? req.body.status : userOld.status,
