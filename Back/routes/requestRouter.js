@@ -17,9 +17,13 @@ router.get('/',
             let filter = req.body.filter
             requests = await Request.find({
                 status: filter
+            }).sort({
+                createdAt:1
             });
         }else{
-            requests = await Request.find();
+            requests = await Request.find().sort({
+                createdAt:1
+            });
         }
 /* + Reviews*/
         res.status(200).send(requests);

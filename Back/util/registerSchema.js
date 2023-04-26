@@ -4,7 +4,7 @@ const ajv = new Ajv;
 const schema={
     type:'object',
     properties:{
-        'name':{
+        'fullName':{
             type:'string'
         },
         'email':{
@@ -21,7 +21,7 @@ const schema={
         },
     },
     required:[
-        'name',
+        'fullName',
         'email',
         'password',
         'phone'

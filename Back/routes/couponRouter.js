@@ -12,7 +12,9 @@ router.get('/',
             authorize,
             async (req, res)=>{
     try{
-        let coupons = await Coupon.find();
+        let coupons = await Coupon.find().sort({
+            createdAt:1
+        });
         
         res.status(200).send(coupons);
     }catch(err){
@@ -44,7 +46,12 @@ router.get('/privacy',
             async (req, res)=>{
     try{
         let {_id : userID} = await userController.getUserByToken(req,res);
-        let coupons = await Coupon.find({ privacy: { $elemMatch: { userID } } });
+        let coupons = await Coupon.find({ 
+            privacy: { 
+                $elemMatch: { userID } } 
+            }).sort({
+            createdAt:1
+        });
         
         if(coupons.length==0) return res.status(404).send('You Got No Coupons');
         res.status(200).send(coupons);

@@ -34,7 +34,7 @@ export default function  Sign() {
   async function regiter(ev){
     ev.preventDefault();
     axios.post('/register', {
-      name: nameAdd,
+      fullName: nameAdd,
       email: emailAdd,
       phone: phoneAdd,
       password: passwordAdd

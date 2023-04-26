@@ -10,8 +10,8 @@ const Review = require('../models/reviewModel');
 const Feedback = require('../models/feedbackModel');
 // CRUD
 router.get('/',
-    authenticate,
-    authorize, 
+    // authenticate,
+    // authorize, 
     async (req,res)=>{
     try{
         let users = await userController.getAllUsers(req,res);
@@ -24,13 +24,13 @@ router.get('/',
     }
 });
 
-router.get('/:email',
-    authenticate,
+router.post('/email',
+    // authenticate,
     async (req,res)=>{
     try{
-        req.body.email = req.params.email;
+        // req.body.email = req.params.email;
         let user = await userController.getUserByEmail(req,res);
-        if(!user) return res.status(404).json('User Not Found..');
+        if(!user) return res.status(404).json('User Not Found...');
 
         let request = await Request.findOne({userID:user.id});
         let review = await Review.findOne({userID:user.id});
@@ -38,10 +38,10 @@ router.get('/:email',
 /*request details + its review..... */
 
         res.status(200).json({
-            user,
-            request,
-            review,
-            feedback
+            user: user,
+            request: request,
+            review: review,
+            feedback: feedback,
         });
     }catch(err){
         console.log(err);

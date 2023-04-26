@@ -14,7 +14,9 @@ router.get('/reviews',
     authorize,
     async(req,res)=>{
     try{
-        let reviews = await Review.find();
+        let reviews = await Review.find().sort({
+            createdAt:1
+        });
         
         res.status(200).send(reviews);
     }catch(err){
@@ -27,7 +29,11 @@ router.get('/accepted',
     authenticate, 
     async(req,res)=>{
     try{
-        let reviews = await Review.find({status:'unhidden'});
+        let reviews = await Review.find({
+            status:'unhidden'
+        }).sort({
+            createdAt:1
+        });
         
         res.status(200).send(reviews);
     }catch(err){
@@ -41,7 +47,11 @@ router.get('/hidden',
     authorize,
     async(req,res)=>{
     try{
-        let reviews = await Review.find({status:'hidden'});
+        let reviews = await Review.find({
+            status:'hidden'
+        }).sort({
+            createdAt:1
+        });
         
         res.status(200).send(reviews);
     }catch(err){
@@ -55,7 +65,11 @@ router.get('/pending',
     authorize,
     async(req,res)=>{
     try{
-        let reviews = await Review.find({status:'pending'});
+        let reviews = await Review.find({
+            status:'pending'
+        }).sort({
+            createdAt:1
+        });
         
         res.status(200).send(reviews);
     }catch(err){

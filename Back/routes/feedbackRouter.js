@@ -12,7 +12,9 @@ router.get('/',
     authorize,
     async (req, res)=>{
     try{
-        let feedbacks = await Feedback.find();
+        let feedbacks = await Feedback.find().sort({
+            createdAt:1
+        });
         
         res.status(200).send(feedbacks);
     }catch(err){

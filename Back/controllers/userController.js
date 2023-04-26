@@ -6,7 +6,7 @@ const bcrypt = require('bcrypt');
 let addUser = async (req,res,next)=>{
     try{
         let user = new User({
-            name: req.body.name,
+            fullName: req.body.fullName,
             email: req.body.email,
             password: await bcrypt.hash(req.body.password, 10),
             phone: req.body.phone,
@@ -80,7 +80,7 @@ let updateUser = async (req,res,next)=> {
         await User.updateOne({            
             email: req.body.email          
         },{
-            name: req.body.name ? req.body.name : userOld.name,
+            fullName: req.body.fullName ? req.body.fullName : userOld.fullName,
             phone: req.body.phone ? req.body.phone : userOld.phone,
             avatar: req.body.avatar ? req.body.avatar : userOld.avatar,
             token: req.body.token ? req.body.token : userOld.token,

@@ -11,7 +11,12 @@ router.get('/',
         async (req,res)=>{
     try{
         let {_id : userID} = await userConroller.getUserByToken(req.header('x-auth-token'));
-        let announces = await Announcement.find({ privacy: { $elemMatch: { userID } } });
+        let announces = await Announcement.find({
+            privacy: {
+                $elemMatch: { userID } 
+            }}).sort({
+            createdAt:1
+        });
         
         res.status(200).send(announces);
     }catch(err){
