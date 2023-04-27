@@ -1,10 +1,51 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import HeaderImg from"../onilne courser.jpg"
 import AboutImg from"../teacher photo.png"
 import { Link } from 'react-router-dom'
+import { getLocalUser } from '../helpers/Storage';
+import axios from 'axios';
 
 
 export default function Home() {
+
+    const localUser = getLocalUser();
+    let loggedEmail = '';
+    let loggedToken = '';
+
+    if(localUser){
+        loggedEmail = localUser.email;
+        loggedToken = localUser.token;
+    }
+
+    const [announces, setAnnounces] = useState({
+        loading: true, 
+        err: null,
+        result:[]
+      });
+
+    useEffect(()=>{
+        setAnnounces({...announces, loading: true});
+
+        axios.get('/announcement',{
+            headers: {
+                email: loggedEmail,
+                authToken: loggedToken
+            }
+        }).then(response =>{
+            console.log(response);
+            setAnnounces({ 
+                ...announces, 
+                result: response.data, 
+                loading: false, 
+                err: null})
+        }).catch(error => {
+            setAnnounces({ 
+                ...announces, 
+                loading: false, 
+                err:error})
+            console.log(error)
+        });
+    },[]);
   return (
     <>
     {/*  Start Navbar      */}
@@ -21,9 +62,20 @@ export default function Home() {
               <a className="nav-link" href="#service">Service</a>
               <a className="nav-link" href="#testmonial">Testmonial</a>
               <a className="nav-link" href="#blog">Anoucment</a>
+              {localUser && (
+                <>
               <Link className="nav-link" to="profile">Profile</Link>
               <Link className="nav-link" to="booking">Book Now</Link>
-              <Link className="nav-link " to='sign'>Sign In/Up</Link>
+                <Link className="nav-link " to='sign'>Log Out</Link>
+                </>
+              )}
+              {!localUser && (
+                <>
+                <Link className="nav-link" to="sign">Book Now</Link>
+                <Link className="nav-link " to='sign'>Sign In/Up</Link>
+                </>
+              )}
+              
             </div>
           </div>
         </div>
@@ -106,48 +158,51 @@ export default function Home() {
             </div>
       </section>
     {/* <!-- End of Skils section --> */}
+
     {/* <!-- Blog Section --> */}
     <section id="blog" className="section">
         <div className="container text-center">
-            <h6 className="section-title mb-4">Announcement</h6>
+            <h6 className="section-title mb-4">Latest Announcements</h6>
             <p className="mb-5 pb-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit. In alias dignissimos. <br/> rerum commodi corrupti, temporibus non quam.</p>
 
             <div className="row text-left">
-                <div className="col-md-4">
-                    <div className="card border mb-4">
-                        <div className="card-body">
-                            <h5 className="card-title">English for Everyone</h5>
-                            <div className="post-details">
-                                <a href="/#">Posted By: Admin</a>
-                                
+                {announces.loading && (
+                    <>load
+                    {/* EDIT
+                    SPINNER
+                     */}
+                    </>
+                )}
+                {announces.result.length !== 0 && !announces.loading && (
+                    <>
+                    {announces.result.map(announce => (
+                    <div className="col-md-4" key={announce._id}>
+                        <div className="card border mb-4">
+                            <div className="card-body">
+                                <h5 className="card-title">{announce.title}</h5>
+                                <div className="post-details">
+                                    <div className='text-muted font-italic text-decoration-underline'>{announce.createdAt}</div>
+                                    
+                                </div>
+                                {/* EDIT
+                                    - *See more Announces...*
+                                    - *See more content...*
+                                */}
+                                <p>{announce.content}</p>
                             </div>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut ad vel dolorum, iusto velit, minima? Voluptas nemo harum impedit nisi.</p>
                         </div>
                     </div>
-                </div>
-                <div className="col-md-4">
-                    <div className="card border mb-4">
-                        <div className="card-body">
-                            <h5 className="card-title">Ahmed Saper student story</h5>
-                            <div className="post-details">
-                                <a href="/#">Posted By: Admin</a>
-                                
-                            </div>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut ad vel dolorum, iusto velit, minima? Voluptas nemo harum impedit nisi.</p>
-                        </div>
-                    </div>
-                </div>
-                <div className="col-md-4">
-                    <div className="card border mb-4">
-                        <div className="card-body">
-                            <h5 className="card-title">All appointments today is canceld</h5>
-                            <div className="post-details">
-                                <a href="/#">Posted By: Admin</a>
-                            </div>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut ad vel dolorum, iusto velit, minima? Voluptas nemo harum impedit nisi.</p>
-                        </div>
-                    </div>
-                </div>
+                    ))}
+                    </>
+                )}
+                {announces.result.length === 0 && (
+                    <>empty
+                    {/* EDIT
+                    Empty msg
+                */}
+                    </>
+                
+                )}
             </div>
         </div>
     </section>
@@ -169,16 +224,6 @@ export default function Home() {
         </div>
     </footer> 
     {/* <!-- End of page footer --> */}
-
-
-
-
-   
-
-
-       
-    
-    
     </>
   )
 }

@@ -8,7 +8,7 @@ import axios from 'axios';
 export default function EditProfile() {
     const navigate = useNavigate();
     const localUser = getLocalUser();
-    if(!localUser)
+    if(!localUser.token)
       navigate('/');
 
     const [data, setData] = useState({
@@ -22,8 +22,13 @@ export default function EditProfile() {
     useEffect(()=>{
     setData({...data, loading: true});
     axios.post('/user/email',{
-        email: "admin@admin.com"
-    }).then( response =>{
+        email: localUser.email
+    },{
+        headers:{
+          email: localUser.email,
+          authToken: localUser.token
+        }
+      }).then( response =>{
         console.log(response);
         setData({ ...data,
             fullName: response.data.user.fullName,
@@ -43,7 +48,7 @@ export default function EditProfile() {
         ev.preventDefault();
         setData({...data, loading:true});
         axios.put('/user/email', {
-            email: "admin@admin.com",
+            email: localUser.email,
             fullName: data.fullName,
             password: data.password,
             passwordConfirm: data.passwordConfirm,
@@ -92,7 +97,7 @@ export default function EditProfile() {
                 <div className="col-xl-8">
                     {/* <!-- Account details card--> */}
                     <div className="card mb-4">
-                        <div className="card-header">Account Details</div>
+                        <div className="card-header font-italic text-muted">{localUser.email}</div>
                         <div className="card-body">
                             <form onSubmit={update}>
                                 {/* <!-- Form Group (username)--> */}

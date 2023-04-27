@@ -4,12 +4,12 @@ import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { setLocalUser } from '../../helpers/Storage';
+import { setLocalUser, removeLocalUser } from '../../helpers/Storage';
 
 
 export default function Sign() {
   const navigate = useNavigate();
-
+  removeLocalUser();
   const [loginInfo, setLoginInfo] = useState({
     err: null,
     email:'',
@@ -23,11 +23,19 @@ export default function Sign() {
       email: loginInfo.email,
       password: loginInfo.password
     }).then((response) => {
-      setLoginInfo({...loginInfo, loading:false});
+      setLoginInfo({
+        ...loginInfo, 
+        loading:false
+      });
+      console.log(response.data);
       setLocalUser(response.data);
       navigate('/');
     }).catch(error => {
-      setLoginInfo({...loginInfo, loading:false, err:error.response.data});
+      setLoginInfo({
+        ...loginInfo, 
+        loading:false, 
+        err:error.response.data
+      });
       alert(error);
     });
   };

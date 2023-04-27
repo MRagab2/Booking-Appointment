@@ -1,8 +1,14 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import { getLocalUser } from '../../helpers/Storage';
 
 
 export default function Booking() {
+  const navigate = useNavigate();
+  const localUser = getLocalUser();
+  if(!localUser.token)
+    navigate('/');
+
   return (
     <>
        <nav className="navbar navbar-expand-lg navbar-light fixed-top bg-trans">

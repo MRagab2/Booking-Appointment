@@ -25,7 +25,7 @@ router.get('/',
 });
 /*get 1*/
 router.post('/email',
-    // authenticate,
+    authenticate,
     async (req,res)=>{
     try{
         // req.body.email = req.params.email;
@@ -49,8 +49,7 @@ router.post('/email',
 });
 
 router.put('/email',
-    // authenticate,
-    // authorize,
+    authenticate,
     async (req,res)=>{
     try{
         // req.body.email = req.params.email;

@@ -17,7 +17,10 @@ router.post('/',
         
         res.header("authToken",user.token);
         delete user.password;
-        res.status(200).json({token: user.token});
+        res.status(200).json({
+            email: user.email,
+            token: user.token
+        });
     }catch(err){
         console.log(err);
         res.status(400).send(err.message);

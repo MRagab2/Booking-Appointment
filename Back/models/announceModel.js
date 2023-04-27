@@ -5,7 +5,7 @@ const announceSchema = new mongoose.Schema({
         type: String,
         trim: true
     },
-    description: {
+    content: {
         type: String,
         trim: true
     },
@@ -14,7 +14,11 @@ const announceSchema = new mongoose.Schema({
             type: String,
             trim: true
         }}
-    ]
+    ],
+    allUsers:{
+        type: Boolean,
+        default: false
+    }
 },{timestamps: true});
 const Announce = mongoose.model("announces",announceSchema);
 

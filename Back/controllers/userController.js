@@ -32,15 +32,18 @@ let getUserByEmail = async (req,res,next)=> {
     }
 };
 
-let getUserByToken = async (req,res,next)=> {
+let getUserByToken = async (token)=> {
     try{
+        // req.body.authToken = req.header("authToken") ? req.header("authToken") : req.body.authToken
+        // console.log("555555555555555");
+
         let user = await User.findOne({            
-            token: req.header("authToken")
+            token
         });
         return user;
     }catch(err){
         console.log(err);
-        res.status(400).send(err.message);
+        return (err);
     }
 };
 

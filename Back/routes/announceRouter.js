@@ -7,15 +7,22 @@ const authorize = require('../middleware/authorization');
 const userConroller = require('../controllers/userController');
 
 router.get('/',
-        authenticate,
         async (req,res)=>{
     try{
-        let {_id : userID} = await userConroller.getUserByToken(req.header('authToken'));
+        let userID ;
+        if(req.header("authToken")){
+           ({_id : userID} = await userConroller.getUserByToken(req.header("authToken")));
+        }
+        
         let announces = await Announcement.find({
-            privacy: {
-                $elemMatch: { userID } 
-            }}).sort({
-            createdAt:1
+            $or: [ 
+                {privacy: 
+                    { $elemMatch: { userID } }
+                },
+                { allUsers: true }
+            ]
+        }).sort({
+            createdAt:-1
         });
         
         res.status(200).send(announces);
@@ -29,7 +36,7 @@ router.get('/:id',
         authenticate,
         async (req,res)=>{
     try{
-        let {_id : userID} = await userConroller.getUserByToken(req.header('authToken'));
+        let {_id : userID} = await userConroller.getUserByToken();
         let announce = await Announcement.findOne({
             _id: req.params.id,
             privacy: { $elemMatch: { userID } }
@@ -50,7 +57,7 @@ router.post('/',
     try{
         let announce = new Announcement({
             title: req.body.title,
-            description: req.body.discount,
+            content: req.body.content,
             privacy: req.body.privacy
         });
         await announce.save();
@@ -76,7 +83,7 @@ router.put('/:id',
             _id: req.params.id
         },{
             title: req.body.title ? req.body.title : announceOld.title,
-            description: req.body.description ? req.body.description : announceOld.description,
+            content: req.body.content ? req.body.content : announceOld.content,
             privacy: req.body.privacy ? req.body.privacy : announceOld.privacy            
         });
 

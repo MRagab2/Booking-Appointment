@@ -6,9 +6,10 @@ import axios from 'axios';
 import { getLocalUser } from '../../helpers/Storage';
 
 export default function Profile() {
+  
   const navigate = useNavigate();
   const localUser = getLocalUser();
-  if(!localUser)
+  if(!localUser.token)
     navigate('/');
 
   const [data, setData] = useState({
@@ -16,10 +17,16 @@ export default function Profile() {
     err: null,
     result:null
   });
+
   useEffect(()=>{
     setData({...data, loading: true});
     axios.post('/user/email',{
-      email: "admin@admin.com"
+      email: localUser.email
+    },{
+      headers:{
+        email: localUser.email,
+        authToken: localUser.token
+      }
     }).then(response =>{
         console.log(response);
         setData({ ...data, result: response.data, loading: false, err: null})
