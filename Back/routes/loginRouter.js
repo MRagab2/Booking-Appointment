@@ -17,7 +17,7 @@ router.post('/',
         
         res.header("x-auth-token",user.token);
         delete user.password;
-        res.status(200).send('Logged in...');
+        res.status(200).send(user.token);
     }catch(err){
         console.log(err);
         res.status(400).send(err.message);

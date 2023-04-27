@@ -4,44 +4,57 @@ import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { setLocalUser } from '../../helpers/Storage';
 
 
 export default function  Sign() {
   const navigate = useNavigate();
 
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [loginInfo, setLoginInfo] = useState({
+    err: null,
+    email:'',
+    password:''
+  });
   
   async function login(ev){
     ev.preventDefault();
+    setLoginInfo({...loginInfo, loading:true});
     axios.post('/login', {
-      email,
-      password
-    }).then(response => {
-      console.log(response);
+      email: loginInfo.email,
+      password: loginInfo.password
+    }).then((response) => {
+      setLoginInfo({...loginInfo, loading:false});
+      setLocalUser(response.data);
       navigate('/');
     }).catch(error => {
+      setLoginInfo({...loginInfo, loading:false, err:error.response.data});
       alert(error);
     });
     
   };
 
-  const [nameAdd, setNameAdd] = useState('');
-  const [emailAdd, setEmailAdd] = useState('');
-  const [phoneAdd, setPhoneAdd] = useState('');
-  const [passwordAdd, setPasswordAdd] = useState('');
+  const [registerInfo, setRegisterInfo] = useState({
+    err: null,
+    email:'',
+    password:'',
+    fullName: '',
+    phone: ''
+  });
   
   async function regiter(ev){
     ev.preventDefault();
+    setRegisterInfo({...registerInfo, loading:true});
     axios.post('/register', {
-      fullName: nameAdd,
-      email: emailAdd,
-      phone: phoneAdd,
-      password: passwordAdd
+      fullName: registerInfo.fullName,
+      email: registerInfo.email,
+      phone: registerInfo.phone,
+      password: registerInfo.password
     }).then(response => {
-      console.log(response);
+      setRegisterInfo({...loginInfo, loading:false});
+      setLocalUser(response.data);
       navigate('/');
     }).catch(error => {
+      setRegisterInfo({...loginInfo, loading:false, err:error.response.data});
       alert(error);
     });
     
@@ -68,6 +81,9 @@ export default function  Sign() {
       <div className="container">
         <div className="main">
           <input type="checkbox" id="chk" aria-hidden="true"/>
+          {/* EDIT 
+            ERRORS MSGS
+            */}
                   {/* <!-- login --> */}
           <div className="login">
               <form className="form" onSubmit={login}>
@@ -77,17 +93,18 @@ export default function  Sign() {
                         name="email" 
                         placeholder="Email" 
                         required
-                        value={email}
-                        onChange={ev =>setEmail(ev.target.value)}/>
+                        value={loginInfo.email}
+                        onChange={ev =>setLoginInfo({...loginInfo, email: ev.target.value})}/>
                   <input className="input" 
                         type="password" 
                         name="password" 
                         placeholder="Password" 
                         required
                         minLength="8"
-                        value={password}
-                        onChange={ev =>setPassword(ev.target.value)}/>
-                  <button type='submit'>Log in</button>
+                        value={loginInfo.password}
+                        onChange={ev =>setLoginInfo({...loginInfo, password: ev.target.value})}/>
+                        
+                  <button type='submit' disabled={loginInfo.loading} >Log in</button>
               </form>
           </div>
                   {/* <!-- register --> */}
@@ -96,35 +113,35 @@ export default function  Sign() {
                 <label for="chk" aria-hidden="true">Register</label>
                 <input className="input" 
                       type="text" 
-                      name="nameAdd" 
+                      name="name" 
                       placeholder="Username" 
                       required
-                      value={nameAdd}
-                      onChange={ev =>setNameAdd(ev.target.value)}/>
+                      value={registerInfo.fullName}
+                      onChange={ev =>setRegisterInfo({...registerInfo, fullName: ev.target.value})}/>
                 <input className="input" 
                       type="email" 
-                      name="emailAdd" 
+                      name="email" 
                       placeholder="Email" 
                       required
-                      value={emailAdd}
-                      onChange={ev =>setEmailAdd(ev.target.value)}/>
+                      value={registerInfo.email}
+                      onChange={ev =>setRegisterInfo({...registerInfo, email: ev.target.value})}/>
                 <input className="input" 
                       type="password" 
-                      name="passwordAdd" 
+                      name="password" 
                       placeholder="Password" 
                       required
                       minLength="8"
-                      value={passwordAdd}
-                      onChange={ev =>setPasswordAdd(ev.target.value)}/>
+                      value={registerInfo.password}
+                      onChange={ev =>setRegisterInfo({...registerInfo, password: ev.target.value})}/>
                 <input className="input" 
                       type="text" 
-                      name="phoneAdd" 
+                      name="phone" 
                       placeholder="Phone No." 
                       required
                       minLength="11"
-                      value={phoneAdd}
-                      onChange={ev =>setPhoneAdd(ev.target.value)}/>
-                <button type='submit'>Register</button>
+                      value={registerInfo.phone}
+                      onChange={ev =>setRegisterInfo({...registerInfo, phone: ev.target.value})}/>
+                <button type='submit' disabled={registerInfo.loading} >Register</button>
             </form>
           </div>
         </div>
