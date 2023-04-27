@@ -35,7 +35,7 @@ let getUserByEmail = async (req,res,next)=> {
 let getUserByToken = async (req,res,next)=> {
     try{
         let user = await User.findOne({            
-            token: req.header("x-auth-token")
+            token: req.header("authToken")
         });
         return user;
     }catch(err){
@@ -83,7 +83,6 @@ let updateUser = async (req,res,next)=> {
             fullName: req.body.fullName ? req.body.fullName : userOld.fullName,
             phone: req.body.phone ? req.body.phone : userOld.phone,
             avatar: req.body.avatar ? req.body.avatar : userOld.avatar,
-            token: req.body.token ? req.body.token : userOld.token,
             status: req.body.status ? req.body.status : userOld.status,
             requestID: req.body.requestID ? req.body.requestID : userOld.requestID,
             reviewID: req.body.reviewID ? req.body.reviewID : userOld.reviewID,
@@ -99,6 +98,8 @@ let updateUser = async (req,res,next)=> {
                 },{
                     password: await bcrypt.hash(password1, 10),
                 });
+            }else{
+                return ("passwords doesn't match");
             }
         }        
 

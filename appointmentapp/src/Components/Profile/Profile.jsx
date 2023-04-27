@@ -1,10 +1,16 @@
 import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import "./Profile.scss";
 import ProfileImg from"./avatar-1.jpg"
 import axios from 'axios';
+import { getLocalUser } from '../../helpers/Storage';
 
 export default function Profile() {
+  const navigate = useNavigate();
+  const localUser = getLocalUser();
+  if(!localUser)
+    navigate('/');
+
   const [data, setData] = useState({
     loading: true, 
     err: null,
@@ -14,12 +20,10 @@ export default function Profile() {
     setData({...data, loading: true});
     axios.post('/user/email',{
       email: "admin@admin.com"
-    })
-      .then(async response =>{
+    }).then(response =>{
         console.log(response);
-        await setData({ ...data, result: response.data, loading: false, err: null})
-      } )
-      .catch(error => {
+        setData({ ...data, result: response.data, loading: false, err: null})
+      }).catch(error => {
         setData({ ...data, loading: false, err:error})
         console.log(error)
         });

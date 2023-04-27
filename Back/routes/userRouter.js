@@ -23,7 +23,7 @@ router.get('/',
         res.status(400).json(err.message);
     }
 });
-
+/*get 1*/
 router.post('/email',
     // authenticate,
     async (req,res)=>{
@@ -35,7 +35,6 @@ router.post('/email',
         let request = await Request.findOne({userID:user.id});
         let review = await Review.findOne({userID:user.id});
         let feedback = await Feedback.findOne({userID:user.id});
-/*request details + its review..... */
 
         res.status(200).json({
             user: user,
@@ -49,15 +48,15 @@ router.post('/email',
     }
 });
 
-router.put('/:email',
-    authenticate,
-    authorize,
+router.put('/email',
+    // authenticate,
+    // authorize,
     async (req,res)=>{
     try{
-        req.body.email = req.params.email;
+        // req.body.email = req.params.email;
         let user = await userController.updateUser(req,res);
-
         if(!user) return res.status(404).send('User Not Found..');
+        if(typeof user === 'string') return res.status(404).send('Error while Update');
         
         res.status(200).send(user);
     }catch(err){

@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { setLocalUser } from '../../helpers/Storage';
 
 
-export default function  Sign() {
+export default function Sign() {
   const navigate = useNavigate();
 
   const [loginInfo, setLoginInfo] = useState({
@@ -16,7 +16,7 @@ export default function  Sign() {
     password:''
   });
   
-  async function login(ev){
+   function login(ev){
     ev.preventDefault();
     setLoginInfo({...loginInfo, loading:true});
     axios.post('/login', {
@@ -30,25 +30,26 @@ export default function  Sign() {
       setLoginInfo({...loginInfo, loading:false, err:error.response.data});
       alert(error);
     });
-    
   };
 
   const [registerInfo, setRegisterInfo] = useState({
     err: null,
+    fullName: '',
     email:'',
     password:'',
-    fullName: '',
+    passwordConfirm:'',
     phone: ''
   });
   
-  async function regiter(ev){
+   function regiter(ev){
     ev.preventDefault();
     setRegisterInfo({...registerInfo, loading:true});
     axios.post('/register', {
       fullName: registerInfo.fullName,
       email: registerInfo.email,
       phone: registerInfo.phone,
-      password: registerInfo.password
+      password: registerInfo.password,
+      passwordConfirm: registerInfo.passwordConfirm
     }).then(response => {
       setRegisterInfo({...loginInfo, loading:false});
       setLocalUser(response.data);
@@ -134,6 +135,14 @@ export default function  Sign() {
                       value={registerInfo.password}
                       onChange={ev =>setRegisterInfo({...registerInfo, password: ev.target.value})}/>
                 <input className="input" 
+                      type="password" 
+                      name="password confirmation" 
+                      placeholder="Password Confirmation" 
+                      required
+                      minLength="8"
+                      value={registerInfo.passwordConfirm}
+                      onChange={ev =>setRegisterInfo({...registerInfo, passwordConfirm: ev.target.value})}/>
+                <input className="input" 
                       type="text" 
                       name="phone" 
                       placeholder="Phone No." 
@@ -141,6 +150,7 @@ export default function  Sign() {
                       minLength="11"
                       value={registerInfo.phone}
                       onChange={ev =>setRegisterInfo({...registerInfo, phone: ev.target.value})}/>
+
                 <button type='submit' disabled={registerInfo.loading} >Register</button>
             </form>
           </div>

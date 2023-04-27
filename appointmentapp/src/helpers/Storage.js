@@ -1,12 +1,12 @@
 
 export const setLocalUser = (data)=>{
-    localStorage.setItem("x-auth-token", JSON.stringify(data));
+    localStorage.setItem("authToken", JSON.stringify(data));
 };
-export const getLocalUser = (data)=>{
-    if(localStorage.getItem("x-auth-token"))
-        return localStorage.getItem("x-auth-token",JSON.parse(data));
+export const getLocalUser = (data)=>{    
+    if(localStorage.getItem("authToken") !== null)
+        return localStorage.getItem("authToken");
 };
 export const removeLocalUser = ()=>{
-    if(localStorage.getItem("x-auth-token"))
-        localStorage.removeItem("x-auth-token");
+    if(localStorage.getItem("authToken"))
+        localStorage.removeItem("authToken");
 }

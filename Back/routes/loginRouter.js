@@ -15,9 +15,9 @@ router.post('/',
         let passwordCheck = await bcrypt.compare(req.body.password, user.password);
         if(!passwordCheck) return res.status(400).send("Wrong Password");
         
-        res.header("x-auth-token",user.token);
+        res.header("authToken",user.token);
         delete user.password;
-        res.status(200).send(user.token);
+        res.status(200).json({token: user.token});
     }catch(err){
         console.log(err);
         res.status(400).send(err.message);

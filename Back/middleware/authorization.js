@@ -3,7 +3,7 @@ const User = require("../models/userModel");
 module.exports = async(req,res,next)=>{
     try{
         let user = await User.findOne({
-            token: req.header("x-auth-token"),
+            token: req.header("authToken"),
             role: 'admin'
         });
 

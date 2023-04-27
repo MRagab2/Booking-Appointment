@@ -10,7 +10,7 @@ router.get('/',
         authenticate,
         async (req,res)=>{
     try{
-        let {_id : userID} = await userConroller.getUserByToken(req.header('x-auth-token'));
+        let {_id : userID} = await userConroller.getUserByToken(req.header('authToken'));
         let announces = await Announcement.find({
             privacy: {
                 $elemMatch: { userID } 
@@ -29,7 +29,7 @@ router.get('/:id',
         authenticate,
         async (req,res)=>{
     try{
-        let {_id : userID} = await userConroller.getUserByToken(req.header('x-auth-token'));
+        let {_id : userID} = await userConroller.getUserByToken(req.header('authToken'));
         let announce = await Announcement.findOne({
             _id: req.params.id,
             privacy: { $elemMatch: { userID } }

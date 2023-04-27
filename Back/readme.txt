@@ -15,7 +15,7 @@
 			}
 		out->
 			"loged in.."
-			header: x-auth-token
+			header: authToken
 /user
 	get('/')
 		out->[{
