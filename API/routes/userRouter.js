@@ -3,6 +3,7 @@ const router = express.Router();
 
 const authenticate = require('../middleware/authentication');
 const authorize = require('../middleware/authorization');
+const upload = require('../middleware/uploadAvatar');
 
 const userController = require('../controllers/userController');
 const Request = require('../models/requestModel');
@@ -50,6 +51,7 @@ router.post('/email',
 
 router.put('/email',
     authenticate,
+    upload.single('avatar'),
     async (req,res)=>{
     try{
         // req.body.email = req.params.email;

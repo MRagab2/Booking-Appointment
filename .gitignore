@@ -1,2 +1,4 @@
 /API/node_modules
 /Client/node_modules
+
+/API/db/dbConfigration.json

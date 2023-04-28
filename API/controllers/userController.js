@@ -1,7 +1,7 @@
 const User = require("../models/userModel");
 const crypto = require('crypto');
 const bcrypt = require('bcrypt');
-
+const fs = require('fs');
 // C R U D
 let addUser = async (req,res,next)=>{
     try{
@@ -79,13 +79,23 @@ let updateUser = async (req,res,next)=> {
         let userOld = await User.findOne({
             email: req.body.email          
         });
+        if(!userOld) {
+            fs.unlinkSync('./public/avatar/' + req.file.filename);
+            return ('User Not Found..')
+        };
+
+        let avatar = userOld.avatar;
+        if(req.file){
+            avatar = req.file.filename ;
+            fs.unlinkSync('./public/avatar/' + userOld.avatar);
+        }
 
         await User.updateOne({            
             email: req.body.email          
         },{
             fullName: req.body.fullName ? req.body.fullName : userOld.fullName,
             phone: req.body.phone ? req.body.phone : userOld.phone,
-            avatar: req.body.avatar ? req.body.avatar : userOld.avatar,
+            avatar: avatar,
             status: req.body.status ? req.body.status : userOld.status,
             requestID: req.body.requestID ? req.body.requestID : userOld.requestID,
             reviewID: req.body.reviewID ? req.body.reviewID : userOld.reviewID,
@@ -110,7 +120,7 @@ let updateUser = async (req,res,next)=> {
             email: userOld.email          
         });
 
-        if(!userNew) return res.status(404).send('Error while Update');
+        if(!userNew) return ('Error while Update');
 
         return userNew;
     }catch(err){
