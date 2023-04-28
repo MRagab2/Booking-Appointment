@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { getLocalUser } from '../../helpers/Storage';
 
@@ -9,6 +9,12 @@ export default function Booking() {
   if(!localUser.token)
     navigate('/');
 
+  const [request, setRequest] = useState({
+    err: null,
+    date:'',
+    time:'',
+    userID:''
+  });
   return (
     <>
        <nav className="navbar navbar-expand-lg navbar-light fixed-top bg-trans">
