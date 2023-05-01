@@ -1,4 +1,3 @@
-
 export const setLocalUser = (data)=>{
     localStorage.setItem("user", JSON.stringify(data));
 };

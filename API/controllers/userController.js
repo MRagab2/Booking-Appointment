@@ -80,14 +80,14 @@ let updateUser = async (req,res,next)=> {
             email: req.body.email          
         });
         if(!userOld) {
-            fs.unlinkSync('./public/avatar/' + req.file.filename);
+            fs.unlinkSync('../client/public/avatar/' + req.file.filename);
             return ('User Not Found..')
         };
 
         let avatar = userOld.avatar;
         if(req.file){
             avatar = req.file.filename ;
-            fs.unlinkSync('./public/avatar/' + userOld.avatar);
+            fs.unlinkSync('../client/public/avatar/' + userOld.avatar);
         }
 
         await User.updateOne({            

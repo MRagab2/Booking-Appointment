@@ -1,4 +1,6 @@
-/API/node_modules
-/Client/node_modules
+/api/node_modules
+/client/node_modules
 
-/API/db/dbConfigration.json
+/api/db/dbConfigration.json
+client/admin/testGet.html
+client/admin/testSend.html

@@ -11,8 +11,8 @@ const Review = require('../models/reviewModel');
 const Feedback = require('../models/feedbackModel');
 // CRUD
 router.get('/',
-    // authenticate,
-    // authorize, 
+    authenticate,
+    authorize, 
     async (req,res)=>{
     try{
         let users = await userController.getAllUsers(req,res);
