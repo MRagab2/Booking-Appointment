@@ -16,7 +16,7 @@ export default function Sign() {
     password:''
   });
   
-   function login(ev){
+  function login(ev){
     ev.preventDefault();
     setLoginInfo({...loginInfo, loading:true});
     axios.post('/login', {

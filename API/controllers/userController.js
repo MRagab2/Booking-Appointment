@@ -13,7 +13,7 @@ let addUser = async (req,res,next)=>{
             token: crypto.randomBytes(10).toString('hex'),
         });
         await user.save();
-        res.status(200).send(user.token);
+        res.status(200).send({token: user.token});
     }catch(err){
         console.log(err);
         res.status(400).send(err.message);

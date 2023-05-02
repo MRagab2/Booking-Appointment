@@ -19,7 +19,8 @@ router.post('/',
         delete user.password;
         res.status(200).json({
             email: user.email,
-            token: user.token
+            token: user.token,
+            role: user.role,
         });
     }catch(err){
         console.log(err);
