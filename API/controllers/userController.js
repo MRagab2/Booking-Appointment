@@ -4,13 +4,34 @@ const bcrypt = require('bcrypt');
 const fs = require('fs');
 // C R U D
 let addUser = async (req,res,next)=>{
+    
+
+    // Read the image file from the source path
+    
+    
     try{
+        let token= crypto.randomBytes(10).toString('hex')
+        const avatar = `DefaultAvatar_${token}.png`;
+        const sourcePath = 'public/avatar/DefaultAvatar.png';
+        const destinationPath = `../Front/assets/imgs/avatar/${avatar}`;
+        
+        fs.readFile(sourcePath, (err, data) => {
+            if (err) return res.status(400).send(err);
+    
+            // Write the image file to the destination path with a new name
+            fs.writeFile(destinationPath, data, (err) => {
+                if (err) return res.status(400).send(err);
+    
+            });
+        });
+        
         let user = new User({
             fullName: req.body.fullName,
             email: req.body.email,
             password: await bcrypt.hash(req.body.password, 10),
             phone: req.body.phone,
-            token: crypto.randomBytes(10).toString('hex'),
+            token: token,
+            avatar: avatar
         });
         await user.save();
         res.status(200).send({token: user.token});
@@ -80,14 +101,14 @@ let updateUser = async (req,res,next)=> {
             email: req.body.email          
         });
         if(!userOld) {
-            fs.unlinkSync('../client/public/avatar/' + req.file.filename);
+            fs.unlinkSync('../Front/assets/imgs/avatar/' + req.file.filename);
             return ('User Not Found..')
         };
 
         let avatar = userOld.avatar;
         if(req.file){
             avatar = req.file.filename ;
-            fs.unlinkSync('../client/public/avatar/' + userOld.avatar);
+            fs.unlinkSync('../Front/assets/imgs/avatar/' + userOld.avatar);
         }
 
         await User.updateOne({            
