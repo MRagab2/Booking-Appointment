@@ -19,21 +19,21 @@
     <!-- Page navigation -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
-          <a class="navbar-brand" href="./index.html">Navbar</a>
-          <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-            <div class="navbar-nav">
-              <a class="nav-link active" aria-current="page" href="./index.html">Home</a>
-              <a class="nav-link" href="#about">About</a>
-              <a class="nav-link" href="#service">Service</a>
-              <a class="nav-link" href="#testmonial">Testmonial</a>
-              <a class="nav-link" href="#blog">Anoucment</a>
-              <a class="nav-link" href="#contact">Contact</a>
-              <a class="nav-link" href="./edit profile/editProfile.html">Profile</a>
-              <a class="nav-link " href="./signUpIn/sign.html">Sign In/Up</a>
+            <a class="navbar-brand" href="./index.html">Navbar</a>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav">
+                <a class="nav-link active" aria-current="page" href="./index.html">Home</a>
+                <a class="nav-link" href="#about">About</a>
+                <a class="nav-link" href="#service">Service</a>
+                <a class="nav-link" href="#reviews">Reviews</a>
+                <a class="nav-link" href="#blog">Anoucment</a>
+                <a class="nav-link" href="#contact">Contact</a>
+                <a class="nav-link" href="./edit profile/editProfile.html">Profile</a>
+                <a class="nav-link " href="./signUpIn/sign.html">Sign In/Up</a>
+                </div>
             </div>
-          </div>
         </div>
-      </nav>
+    </nav>
     <!-- End of page navibation -->
 
     <!-- Page Header -->
@@ -97,8 +97,6 @@
             <h6 class="subtitle">Service</h6>
             <h6 class="section-title mb-4">What I Do</h6>
             <p class="mb-5 pb-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit. In alias dignissimos. <br> rerum commodi corrupti, temporibus non quam.</p>
-
-   
         </div>
     </section>
     <!-- End of Sectoin -->
@@ -109,60 +107,29 @@
             <h6 class="subtitle">Skills</h6>
             <h6 class="section-title mb-4">Why Choose me</h6>
             <p class="mb-5 pb-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit. In alias dignissimos. <br> rerum commodi corrupti, temporibus non quam.</p>
-
-            
         </div>
     </section>
    
     <!-- End of portfolio section -->
 
-    <!-- Testmonial Section -->
-    <section id="testmonial" class="section">
+    <!-- Reviews Section -->
+    <section id="reviews" class="section">
         <div class="container text-center">
-            <h6 class="subtitle">Testmonial</h6>
+            <h6 class="subtitle">Reviews</h6>
             <h6 class="section-title mb-4">What People Say About Me</h6>
             <p class="mb-5 pb-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit. In alias dignissimos. <br> rerum commodi corrupti, temporibus non quam.</p>
 
-
             <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-                <ol class="carousel-indicators">
-                    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-                    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-                    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                <ol class="carousel-indicators" id="reviewsController">
+                    <!-- The Controller here -->
                 </ol>
-                <div class="carousel-inner">
-                    <div class="carousel-item active">
-                        <div class="card testmonial-card border">
-                            <div class="card-body">
-                                <img src="assets/imgs/avatar-1.jpg" alt="">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magnam nostrum voluptates in enim vel amet?</p>
-                                <h1 class="title">Emma Re</h1>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="carousel-item">
-                        <div class="card testmonial-card border">
-                            <div class="card-body">
-                                <img src="assets/imgs/avatar-2.jpg" alt="">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magnam nostrum voluptates in enim vel amet?</p>
-                                <h1 class="title">James Bert</h1>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="carousel-item">
-                        <div class="card testmonial-card border">
-                            <div class="card-body">
-                                <img src="assets/imgs/avatar-3.jpg" alt="">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magnam nostrum voluptates in enim vel amet?</p>
-                                <h1 class="title">Michael Abra</h1>
-                            </div>
-                        </div>
-                    </div>
+                <div class="carousel-inner" id="reviewsCards">
+                    <!-- The Cards here -->
                 </div>
             </div>
         </div>
     </section>
-    <!-- End of testmonial section -->
+    <!-- End of Reviews section -->
 
     <!-- Blog Section -->
     <section id="blog" class="section">
@@ -243,37 +210,38 @@
                             <br>
                             <h5>month:</h5>
 
-<select name="month">
-    <option value="january">January</option>
-    <option value="february">February</option>
-    <option value="march">March</option>
-    <option value="april">April</option>
-    <option value="may">May</option>
-    <option value="august">August</option>
-    <option value="september">September</option>
-    <option value="october">October</option>
-    <option value="november">November</option>
-    <option value="december">December</option>
-</select>
-<br>
-<h5>day:</h5>
+                            <select name="month">
+                                <option value="january">January</option>
+                                <option value="february">February</option>
+                                <option value="march">March</option>
+                                <option value="april">April</option>
+                                <option value="may">May</option>
+                                <option value="august">August</option>
+                                <option value="september">September</option>
+                                <option value="october">October</option>
+                                <option value="november">November</option>
+                                <option value="december">December</option>
+                            </select>
+                            <br>
+                            <h5>day:</h5>
 
-<select name="day">
-    <option value="saturday">Saturday</option>
-    <option value="sunday">Sunday</option>
-    <option value="monday">Monday</option>
-    <option value="tuesday">Tuesday</option>
-    <option value="wednesday">Wednesday</option>
-    <option value="thursday">Thursday</option>
-    <option value="friday">Friday</option>
-</select>
-<br>
-<h5>time:</h5>
+                            <select name="day">
+                                <option value="saturday">Saturday</option>
+                                <option value="sunday">Sunday</option>
+                                <option value="monday">Monday</option>
+                                <option value="tuesday">Tuesday</option>
+                                <option value="wednesday">Wednesday</option>
+                                <option value="thursday">Thursday</option>
+                                <option value="friday">Friday</option>
+                            </select>
+                            <br>
+                            <h5>time:</h5>
 
-<input type="time" id="appt" name="appt" required>
-<div class="result-event-data">
-</div>                        </div>
-                        <butt on type="submit" class="btn btn-primary btn-block rounded w-lg">Send Message</butt>
+                            <input type="time" id="appt" name="appt" required>
+                            <div class="result-event-data">
+                            </div>                        
+                        </div>
+                            <butt on type="submit" class="btn btn-primary btn-block rounded w-lg">Send Message</butt>
                     </form>
                 </div>
                 <div class="contact-infos">
@@ -305,10 +273,7 @@
     </section>
     <!-- End of Contact Section -->
     <div class="container3">
-
-   
-        
-              
+ 
         <div class="schedule__container">
             <div class="days__container">
                 <span class="corner"></span>
@@ -405,6 +370,7 @@
     </footer> 
     <!-- End of page footer -->
 	
+    <script src="assets/js/user/reviews.js"></script>
 	<!-- core  -->
     <script src="assets/vendors/jquery/jquery-3.4.1.js"></script>
     <script src="assets/vendors/bootstrap/bootstrap.bundle.js"></script>
@@ -414,7 +380,6 @@
     <!--  js -->
     <script src="assets/js/steller.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
 </body>
 </html>

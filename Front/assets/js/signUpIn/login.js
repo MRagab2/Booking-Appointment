@@ -1,8 +1,10 @@
+import { setLocalUser,removeLocalUser } from "../../helpers/Storage.js";
+removeLocalUser();
 const loginForm = document.getElementById('loginForm');
 
 loginForm.addEventListener('submit', event => {
     event.preventDefault();
-    loginBtn = document.getElementById("loginBtn");
+    let loginBtn = document.getElementById("loginBtn");
     loginBtn.disabled = true;
 
     const formData = new FormData(loginForm);
@@ -26,6 +28,10 @@ loginForm.addEventListener('submit', event => {
     if(result.role != 'admin'){
         window.location.href = "../index.html"
     }else{
+        setLocalUser({
+            authToken: result.token,
+            role: result.role
+        });
         window.location.href = "../admin/index.html";
     }
     

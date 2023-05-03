@@ -5,10 +5,6 @@ const fs = require('fs');
 // C R U D
 let addUser = async (req,res,next)=>{
     
-
-    // Read the image file from the source path
-    
-    
     try{
         let token= crypto.randomBytes(10).toString('hex')
         const avatar = `DefaultAvatar_${token}.png`;

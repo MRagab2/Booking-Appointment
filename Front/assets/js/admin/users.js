@@ -1,8 +1,13 @@
+import { getLocalUser } from "../../helpers/Storage.js"
+
+const user = getLocalUser();
+if(!user || user.role != 'admin') window.location.href = "../index.html";
+
 fetch('http://localhost:4000/user',{
 method: 'GET', // or 'GET', 'PUT', 'DELETE', etc.
 headers: {
     'Content-Type': 'application/json',
-    'authToken': '50e6039ce3e4f5941889b9e201c56748'
+    'authToken': user.authToken
   },
 })
 .then(response => response.json())

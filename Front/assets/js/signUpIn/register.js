@@ -1,8 +1,11 @@
+import { removeLocalUser, setLocalUser } from "../../helpers/Storage.js";
+removeLocalUser();
+
 const registerForm = document.getElementById('registerForm');
 
 registerForm.addEventListener('submit', event => {
     event.preventDefault();
-    registerBtn = document.getElementById("registerBtn");
+    let registerBtn = document.getElementById("registerBtn");
     registerBtn.disabled = true;
 
     const formData = new FormData(registerForm);
