@@ -19,12 +19,16 @@
     <link rel="stylesheet" href="bootstrap.min.css">
 
     <link rel="shortcut icon" href="assets/images/favicon.png" />
+    
+
   </head>
   <body>
 
 
     
     <div class="container-scroller">
+
+      <!-- Sidebar -->
       <nav class="sidebar sidebar-offcanvas" id="sidebar">
         <div class="sidebar-brand-wrapper d-none d-lg-flex align-items-center justify-content-center fixed-top">
           <a class="sidebar-brand brand-logo" href="index.html"><img src="assets/images/logo.svg" alt="logo" /></a>
@@ -120,6 +124,8 @@
       <!-- partial -->
       <div class="container-fluid page-body-wrapper">
         <!-- partial:partials/_navbar.html -->
+
+        <!-- Top Navbar -->
         <nav class="navbar p-0 fixed-top d-flex flex-row">
           <div class="navbar-brand-wrapper d-flex d-lg-none align-items-center justify-content-center">
             <a class="navbar-brand brand-logo-mini" href="index.html"><img src="assets/images/logo-mini.svg" alt="logo" /></a>
@@ -274,6 +280,8 @@
         </nav>
         <div class="main-panel">
           <div class="content-wrapper">
+
+            <!-- Income Cards -->
            <div class="row">
             <div class="col-xl-3 col-sm-6 grid-margin stretch-card">
               <div class="card">
@@ -356,13 +364,14 @@
               </div>
             </div>
            </div>
+           
             <div class="row ">
               <div class="col-12 grid-margin">
                 <div class="card">
                   <div class="card-body">
                     <h4 class="card-title">user Status</h4>
                     <div class="table-responsive">
-                      <table class="table">
+                      <table class="table" id="userTable">
                         <thead>
                           <tr>
                             <th>
@@ -372,118 +381,16 @@
                                 </label>
                               </div>
                             </th>
-                            <th> user Name </th>
-                            <th> id No </th>
-                            <th> email </th>
-                            <th> reservation </th>
-                            <th> reservation status </th>
-                            <th> feedback </th>
-                            <th> created at </th>
-                            
+                            <th> User </th>
+                            <th> Email </th>
+                            <th> Phone </th>
+                            <th> Status </th>
+                            <th> User's Request </th>
+                            <th> Feedback </th>
+                            <th> Created at </th>                            
                           </tr>
                         </thead>
-                        <tbody>
-                          <tr>
-                            <td>
-                              <div class="form-check form-check-muted m-0">
-                                <label class="form-check-label">
-                                  <input type="checkbox" class="form-check-input">
-                                </label>
-                              </div>
-                            </td>
-                            <td>
-                              <img src="assets/images/faces/face1.jpg" alt="image" />
-                              <span class="ps-2">oliver queen</span>
-                            </td>
-                            <td> 02312 </td>
-                            <td> Dashboard </td>
-                            <td> monday 3pm</td>
-                            <td> done</td>
-                            <td> it was so good</td>
-                            <td> 04 Dec 2019 </td>
-                      
-                          </tr>
-                          <tr>
-                            <td>
-                              <div class="form-check form-check-muted m-0">
-                                <label class="form-check-label">
-                                  <input type="checkbox" class="form-check-input">
-                                </label>
-                              </div>
-                            </td>
-                            <td>
-                              <img src="assets/images/faces/face2.jpg" alt="image" />
-                              <span class="ps-2">Estella Bryan</span>
-                            </td>
-                            <td> 02312 </td>
-                            <td> Website </td>
-                            <td> monday 3pm</td>
-                            <td> pending</td>
-                            <td> .................. </td>
-                            <td> 04 Dec 2019 </td>
-                      
-                          </tr>
-                          <tr>
-                            <td>
-                              <div class="form-check form-check-muted m-0">
-                                <label class="form-check-label">
-                                  <input type="checkbox" class="form-check-input">
-                                </label>
-                              </div>
-                            </td>
-                            <td>
-                              <img src="assets/images/faces/face5.jpg" alt="image" />
-                              <span class="ps-2">Lucy Abbott</span>
-                            </td>
-                            <td> 02312 </td>
-                            <td> App design </td>
-                            <td> monday 3pm</td>
-                            <td> pending</td>
-                            <td> .................. </td>
-                            <td> 04 Dec 2019 </td>
-                      
-                          </tr>
-                          <tr>
-                            <td>
-                              <div class="form-check form-check-muted m-0">
-                                <label class="form-check-label">
-                                  <input type="checkbox" class="form-check-input">
-                                </label>
-                              </div>
-                            </td>
-                            <td>
-                              <img src="assets/images/faces/face3.jpg" alt="image" />
-                              <span class="ps-2">Peter Gill</span>
-                            </td>
-                            <td> 02312 </td>
-                            <td> Development </td>
-                            <td> monday 3pm</td>
-                            <td> done</td>
-                            <td> it was perfect</td>
-                            <td> 04 Dec 2019 </td>
-                      
-                          </tr>
-                          <tr>
-                            <td>
-                              <div class="form-check form-check-muted m-0">
-                                <label class="form-check-label">
-                                  <input type="checkbox" class="form-check-input">
-                                </label>
-                              </div>
-                            </td>
-                            <td>
-                              <img src="assets/images/faces/face4.jpg" alt="image" />
-                              <span class="ps-2">Sallie Reyes</span>
-                            </td>
-                            <td> 02312 </td>
-                            <td> Website </td>
-                            <td> monday 3pm</td>
-                            <td> pending</td>
-                            <td> .................. </td>
-                            <td> 04 Dec 2019 </td>
-                      
-                          </tr>
-                        </tbody>
+                        <tbody> </tbody>
                       </table>
                     </div>
                   </div>
@@ -500,34 +407,9 @@
         </div>
       </div>
     </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     
-       <script src="index.js"></script>
+    <script type="module" src="../assets/js/admin/users.js"></script>
+    <!-- <script type="module" src="../assets/helpers/Storage.js"></script> -->
     <!-- container-scroller -->
     <!-- plugins:js -->
     <script src="assets/vendors/js/vendor.bundle.base.js"></script>
