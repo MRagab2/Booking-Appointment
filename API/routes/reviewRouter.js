@@ -4,6 +4,7 @@ const router = express.Router();
 const userConroller = require('../controllers/userController');
 const authenticate = require('../middleware/authentication');
 const authorize = require('../middleware/authorization');
+
 const User = require('../models/userModel');
 const Request = require('../models/requestModel');
 const Review = require("../models/reviewModel");
@@ -26,7 +27,7 @@ router.get('/reviews',
 });
 
 router.get('/accepted', 
-    authenticate, 
+    // authenticate, 
     async(req,res)=>{
     try{
         let reviews = await Review.find({
@@ -34,8 +35,44 @@ router.get('/accepted',
         }).sort({
             createdAt:1
         });
-        
-        res.status(200).send(reviews);
+
+        let usersReviews = [];
+        Promise.all(reviews.map(async review => {
+            let {
+                _id,
+                fullName,
+                email,
+                phone,
+                avatar,
+                requestID,
+                reviewID,
+                feedbackID,
+                createdAt,
+            } = await User.findOne({
+                _id: review.userID
+            });
+            let user={
+                _id,
+                fullName,
+                email,
+                phone,
+                avatar,
+                requestID,
+                reviewID,
+                feedbackID,
+                createdAt,
+            };
+
+            usersReviews.push({
+                review,
+                user
+            });
+        })).then(() => {
+            res.status(200).send(usersReviews);
+        }).catch(error => {
+            onsole.log(err);
+            res.status(400).send(err.message);
+        });
     }catch(err){
         console.log(err);
         res.status(400).send(err.message);
@@ -96,7 +133,7 @@ router.post('/',
     async(req,res)=>{
     try{
         let requestID = req.body.requestID;
-        let {_id : userID} = await userConroller.getUserByToken(req,res);
+        let userID = req.body.userID;
 
         let check = await Review.findOne({
             $or:[
@@ -115,20 +152,20 @@ router.post('/',
         });
 
         let userCheck = await User.findOne({
-            _id: review.userID,
+            _id: req.body.userID,
         });
         let requestCheck = await Request.findOne({
-            _id: review.userID,
+            _id: req.body.requestID,
         });
         if(requestCheck.reviewID || userCheck.reviewID) return res.status(400).send('User Already Feedbacked');
 
         await User.findOneAndUpdate({
-            _id: review.userID
+            _id: req.body.userID
         },{
             reviewID: review.id
         });
         await Request.findOneAndUpdate({
-            _id: review.userID
+            _id: req.body.requestID
         },{
             reviewID: review.id
         });

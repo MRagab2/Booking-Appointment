@@ -55,9 +55,8 @@ router.post('/',
     authenticate,
     async (req,res)=>{
     try{
-        let {_id : userID} = await userConroller.getUserByToken(req,res);
         let check = await Request.findOne({
-            userID: userID
+            userID: req.body.userID
         });
         if(check) return res.status(400).send('Request Already Existed');
         
@@ -68,13 +67,13 @@ router.post('/',
             time: req.body.time,
             price: req.body.price,
             couponID: couponID,
-            userID: userID,
+            userID: req.body.userID,
         });
-
 
         let userCheck = await User.findOne({
-            _id: request.userID,
+            _id: req.body.userID,
         });
+
         if(userCheck.requestID) return res.status(400).send('User Already sent request');
 
         await User.findOneAndUpdate({
