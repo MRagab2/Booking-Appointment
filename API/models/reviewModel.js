@@ -16,7 +16,7 @@ const reviewSchema = new mongoose.Schema({
         enum: ['not good','good','excellent'],
         required: true
     },
-    review: {
+    content: {
         type: String,
         required: true,
         trim: true

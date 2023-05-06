@@ -27,7 +27,7 @@ router.get('/reviews',
 });
 
 router.get('/accepted', 
-    authenticate, 
+    // authenticate, 
     async(req,res)=>{
     try{
         let reviews = await Review.find({

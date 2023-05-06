@@ -26,10 +26,12 @@
                 <a class="nav-link" href="#about">About</a>
                 <a class="nav-link" href="#service">Service</a>
                 <a class="nav-link" href="#reviews">Reviews</a>
-                <a class="nav-link" href="#blog">Anoucment</a>
+                <a class="nav-link" href="#anoucment">Anoucment</a>
                 <a class="nav-link" href="#contact">Contact</a>
-                <a class="nav-link" href="./edit profile/editProfile.html">Profile</a>
-                <a class="nav-link " href="./signUpIn/sign.html">Sign In/Up</a>
+                <div id="profileOptions">                    
+                </div>
+                <!-- <a class="nav-link" href="./edit profile/editProfile.html" id="profileBtn">Profile</a>
+                <a class="nav-link " href="./signUpIn/sign.html">Sign In/Up</a> -->
                 </div>
             </div>
         </div>
@@ -131,50 +133,15 @@
     </section>
     <!-- End of Reviews section -->
 
-    <!-- Blog Section -->
-    <section id="blog" class="section">
+    <!-- Anoucment Section -->
+    <section id="anoucment" class="section">
         <div class="container text-center">
             <h6 class="section-title mb-4">Announcement</h6>
             <p class="mb-5 pb-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit. In alias dignissimos. <br> rerum commodi corrupti, temporibus non quam.</p>
-
-            <div class="row text-left">
-                <div class="col-md-4">
-                    <div class="card border mb-4">
-                        <div class="card-body">
-                            <h5 class="card-title">English for Everyone</h5>
-                            <div class="post-details">
-                                <a href="javascript:void(0)">Posted By: Admin</a>
-                                
-                            </div>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut ad vel dolorum, iusto velit, minima? Voluptas nemo harum impedit nisi.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card border mb-4">
-                        <div class="card-body">
-                            <h5 class="card-title">Ahmed Saper student story</h5>
-                            <div class="post-details">
-                                <a href="javascript:void(0)">Posted By: Admin</a>
-                                
-                            </div>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut ad vel dolorum, iusto velit, minima? Voluptas nemo harum impedit nisi.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card border mb-4">
-                        <div class="card-body">
-                            <h5 class="card-title">All appointments today is canceld</h5>
-                            <div class="post-details">
-                                <a href="javascript:void(0)">Posted By: Admin</a>
-                            
-                            </div>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut ad vel dolorum, iusto velit, minima? Voluptas nemo harum impedit nisi.</p>
-                            <!-- <a href="javascript:void(0)">Read More..</a> -->
-                        </div>
-                    </div>
-                </div>
+            
+            <!-- <a href="javascript:void(0)">Read More..</a> -->
+            <div class="row text-left" id="announcesCards">
+                <!-- The Cards here -->          
             </div>
         </div>
     </section>
@@ -370,7 +337,9 @@
     </footer> 
     <!-- End of page footer -->
 	
-    <script src="assets/js/user/reviews.js"></script>
+    <script src="assets/js/user/reviews.js"></script>    
+    <script type="module" src="assets/js/user/announces.js"></script>
+    <script type="module" src="assets/js/user/header.js"></script>
 	<!-- core  -->
     <script src="assets/vendors/jquery/jquery-3.4.1.js"></script>
     <script src="assets/vendors/bootstrap/bootstrap.bundle.js"></script>

@@ -10,7 +10,7 @@ router.get('/',
         async (req,res)=>{
     try{
         let userID ;
-        if(req.header("authToken")){
+        if(req.header("authToken") !== ''){
            ({_id : userID} = await userConroller.getUserByToken(req.header("authToken")));
         }
         

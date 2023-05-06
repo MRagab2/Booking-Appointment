@@ -2,7 +2,6 @@ fetch('http://localhost:4000/review/accepted',{
 method: 'GET', // or 'GET', 'PUT', 'DELETE', etc.
 headers: {
     'Content-Type': 'application/json',
-    'authToken': '2fc5097129700d9c8137'
   },
 })
 .then(response => response.json())
@@ -15,7 +14,8 @@ headers: {
                               <div class="card testmonial-card border">
                                   <div class="card-body">
                                       <img src="assets/imgs/avatar/${data[0].user.avatar}">
-                                      <p>${data[0].review.review}</p>
+                                      <h1 class="title">${data[0].review.rate}</h1>
+                                      <p>${data[0].review.content}</p>
                                       <h1 class="title">${data[0].user.fullName}</h1>
                                   </div>
                               </div>
@@ -29,7 +29,8 @@ headers: {
           <div class="card testmonial-card border">
               <div class="card-body">
                   <img src="assets/imgs/avatar/${review.user.avatar}">
-                  <p>${review.review.review}</p>
+                  <h1 class="title">${review.review.rate}</h1>
+                  <p>${review.review.content}</p>
                   <h1 class="title">${review.user.fullName}</h1>
               </div>
           </div>
